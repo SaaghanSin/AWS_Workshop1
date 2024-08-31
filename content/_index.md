@@ -1,5 +1,5 @@
 ---
-title : "Session Management"
+title : "Building an Automated Data Pipeline: Fetching Data from API to S3 with AWS Lambda and CloudWatch"
 date :  "`r Sys.Date()`" 
 weight : 1 
 chapter : false
