@@ -1,0 +1,99 @@
+[
+{
+	"uri": "//localhost:1313/vi/",
+	"title": "Session Management",
+	"tags": [],
+	"description": "",
+	"content": "Làm việc với Amazon System Manager - Session Manager Tổng quan Trong bài lab này, bạn sẽ tìm hiểu các khái niệm cơ bản và thực hành về Amazon System Manager - Session Management. Thực hành tạo kết nối đến máy chủ public và máy chủ private trong VPC.\nNội dung Giới thiệu Các bước chuẩn bị Tạo kết nối đến máy chủ EC2 Quản lý session logs Port Forwarding Dọn dẹp tài nguyên "
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/",
+	"title": "Chuẩn bị",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/1-introduce/",
+	"title": "Giới thiệu",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-lambda/4.1-function/",
+	"title": "Tao ham lambda",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.1.1-createpolicy/",
+	"title": "Tạo Policy ",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-lambda/4.2-layer/",
+	"title": "Tạo kết nối đến máy chủ EC2 Private",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/2-prerequiste/2.1.2-createiam/",
+	"title": "Tạo Public subnet",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-lambda/",
+	"title": "Tao ham Lambda",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/3-s3log/",
+	"title": "Tao S3 ",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/vi/5-pipeline/",
+	"title": "Port Forwarding",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/6-cleanup/",
+	"title": "Dọn dẹp tài nguyên  ",
+	"tags": [],
+	"description": "",
+	"content": " Content is currently under construction.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-lambda/4.3-layeradd/",
+	"title": "",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

@@ -1,0 +1,113 @@
+[
+{
+	"uri": "//localhost:1313/",
+	"title": "Session Management",
+	"tags": [],
+	"description": "",
+	"content": "Data Auto Pipeline in AWS Overall In this lab, you\u0026rsquo;ll learn the basics and practice building a basic data pipeline. This involves crawling data from a web source using a Lambda function, ingesting it into S3, and triggering the pipeline with CloudWatch.\nContent Introduction Preparation Lambda Function Integrate S3 service Auto Pipeline Clean up resources "
+},
+{
+	"uri": "//localhost:1313/4-lambda/4.1-function/",
+	"title": "Create Lambda function",
+	"tags": [],
+	"description": "",
+	"content": "Create Lambda Function\nGo to Lambda Console\nClick Create function. At the Create bucket page:\nIn the Bucket name field, write a meaningful name to identify this function, such as Workshop1Function. In the Runtime field, choose the language use to write your function. In this workshop, I choose Python 3.8 as we will need to import request - an external library. In the Permissions field, choose Use an existing role from the Execution role option box. Then choose the role you have create in the preparation. Review the information and then click Create function. (Optional) If this is your first time working with AWS Lambda, it’s a good idea to try something simple. Start with a \u0026ldquo;Hello, World!\u0026rdquo; program:\ndef lambda_handler(event, context): return { \u0026#39;statusCode\u0026#39;: 200, \u0026#39;body\u0026#39;: \u0026#39;Hello, World!\u0026#39; } As you can see, the lambda_handler function is the entry point for AWS Lambda functions. When your Lambda function is invoked, AWS Lambda calls this function and passes it the event data and context. It conatain 2 parameters:\nevent:\nThis parameter contains data about the event that triggered the Lambda function. The structure of event depends on the source of the trigger (e.g., an API Gateway request, S3 event, etc.). In this simple example, the event parameter is not used, but in more complex functions, it might contain request data, file information, or other relevant details. context:\nThis parameter provides information about the runtime environment of the Lambda function, such as the function name, memory limits, and request identifiers. Like event, context is not used in this example, but it can be useful for logging or accessing runtime information in more advanced scenarios. Let\u0026rsquo;s continue on create Lambda layer to build our function.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1.1-createpolicy/",
+	"title": "Create Policy",
+	"tags": [],
+	"description": "",
+	"content": "Create Policy Go to Identity and Access Management Control\nClick Policies. Click Create Policy. At the Create Policy page:\nStep 1: Specify permissions\nIn the Service option box, choose S3. In the Actions allowed field, choose PutObject from the Write criteria. In the Resource option box, choose All. Click Next. Step 2: Review and create\nIn the Policy name field, write a meaningful name to identify this policy, such as S3PutPolicy. Click Create Policy. Similarly, create a policy for EventBridge Scheduler execution. Select Lambda as the service and set the access level to Limited: Write.\nNow that you\u0026rsquo;ve created the necessary policies, you\u0026rsquo;re ready to create an IAM role that will use these policies.\n"
+},
+{
+	"uri": "//localhost:1313/1-introduce/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "In today\u0026rsquo;s data-driven world, the ability to automatically ingest, process, and analyze data is crucial for businesses to make informed decisions. AWS provides a comprehensive set of tools that allow developers and data engineers to build scalable, reliable, and secure data pipelines with ease. This workshop will guide you through the process of building a basic data pipeline using key AWS services such as Lambda, S3, and CloudWatch.\nThe focus of this lab is to demonstrate how you can automate the process of crawling data from a web source, storing it in an S3 bucket, and triggering subsequent actions based on the data arrival using CloudWatch. By the end of this workshop, you will have a solid understanding of how to:\nUtilize AWS Lambda to crawl and process web data. Store and manage data efficiently in Amazon S3. Automate pipeline triggers using CloudWatch events. Secure and manage your data pipeline using AWS\u0026rsquo;s built-in tools. This hands-on experience will provide you with the foundational knowledge needed to extend and customize your data pipelines for more complex use cases, enabling your organization to efficiently handle large volumes of data with minimal manual intervention. In the subsequent sections, we\u0026rsquo;ll cover the prerequisites and preparation needed to get started, followed by step-by-step instructions to build and deploy your data pipeline.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/",
+	"title": "Preparation",
+	"tags": [],
+	"description": "",
+	"content": "In this step, we will learn how to create a policy in AWS, how to create an IAM role with the updated policy.\nContent Create Policy Create IAM role Download Library Package "
+},
+{
+	"uri": "//localhost:1313/4-lambda/4.2-layer/",
+	"title": "Create Function Layer",
+	"tags": [],
+	"description": "",
+	"content": "Create Function Layer\nGo to Function Console\nIn the Additional resouces Click Layers. The Layers Console page show up. Then click Create layers. At the Create layers page:\nIn the Layer name field, write a meaningful name to identify this function, such as pythonRequests.\nClick Upload then upload the Request library you have download before to upload to AWS Layer.\nIn the Runtime field, to omit the unwant situation, choose the runtime compatible with your function runtime.\nReview the information and then click Create.\nAfter creating the layer, proceed to the next step to import the layer into your function.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1.2-createiam/",
+	"title": "Create IAM role",
+	"tags": [],
+	"description": "",
+	"content": "Create IAM Role Go to Identity and Access Management Control\nClick Roles. Click Create role. At the Create role page:\nStep 1: Select trusted identity\nIn the Trusted entity type option box, choose AWS service. In the Use case field, choose Lambda. Click Next. Step 2: Add permissions\nIn the Permissions policies field, choose the policy you have create before with AWSLambdaBasicExecutionRole. In the guide, it\u0026rsquo;s s3PutPolicy. Click Next. Step 3: Name, review, and create\nIn the Role name field, write a meaningful name to identify this policy, such as s3PutObjectRole. Click Create role. Similarly, creating an IAM Role for EventBridge Scheduler:\nRepeat the above steps to create another IAM role, but this time, in Step 2: Add permissions, select the EventBridge Scheduler policy you created (e.g., EventBridgeSchedulerExecutionPolicy) along with AWSLambdaBasicExecutionRole. Name this role something like EventBridgeSchedulerRole. Click Create role. After this, move on to download the needed library for layer of the lambda function. In this workshop it is Request library.\n"
+},
+{
+	"uri": "//localhost:1313/2-prerequiste/2.1.3-package/",
+	"title": "Download Library",
+	"tags": [],
+	"description": "",
+	"content": "Download library For some library that lambda does not support, we will have to create a layer contain library to run.\nGo to Lambda Layers make by kuruhan, whichis a collection of pre-built AWS Lambda layers for Python. It provides a variety of libraries that you can directly use in your Lambda functions. From the table of content, download the need library package for your lambda function and choose the runtime version. In this workshop, we will use Request library with Python 3.8 runtime.\nYou have now completed the preparation. Let’s return to AWS to start building our workshop.\n"
+},
+{
+	"uri": "//localhost:1313/4-lambda/4.3-layeradd/",
+	"title": "Add Function Layer",
+	"tags": [],
+	"description": "",
+	"content": "Add Function Layer\nInside the function page, move to the bottom of the page, you will see the Layers section. Click Add a layer. At the Create bucket page: In the Add Layer page, choose Custom layers from Layer Source field. Then, after Custom layers field show up, choose the layer your have create in 4.2 and their version(for a newly created layer, it should be version 1). Review the information and then Click Add. Verify the Layer Addition: You will be redirected back to the function page. Check if the layer has been imported by looking at the function diagram, where the number of layers in your function should now be visible. (Optional) Verify the Library: You can check if your library is working by testing the Requests library with this code snippet:\nimport requests response = requests.get(\u0026#34;https://api.github.com\u0026#34;) print(response.status_code) The setup is complete; let\u0026rsquo;s move on to the content of the function.\n"
+},
+{
+	"uri": "//localhost:1313/3-s3log/",
+	"title": "Create S3 Bucket",
+	"tags": [],
+	"description": "",
+	"content": "In this step, we will create a S3 storage to store our data.\nGo to Amazon S3\nClick CreateBucket. At the Create bucket page:\nIn the Bucket name field, write a meaningful name to identify this bucket, such as Workshop1Bucket. At the Block Public Access setting, you won\u0026rsquo;t want other people access to your bucket. So for now just choose Block all public access. Review the create S3 Bucket information and then click Create bucket. For now, let\u0026rsquo;s continue to make lambda function.\n"
+},
+{
+	"uri": "//localhost:1313/4-lambda/",
+	"title": "Create Lambda function",
+	"tags": [],
+	"description": "",
+	"content": "In this step, we will develop a Lambda function that will handle the process of loading data from a specified source, such as an API, into an S3 storage bucket. For the purposes of this workshop, we will focus on the task of crawling data from an API and then storing the retrieved data in S3.\nContent 4.1. Create Lambda function 4.2. Create Function library layer\n4.3. Add Function library layer\n4.4. Creating Lambda Function Content\n"
+},
+{
+	"uri": "//localhost:1313/4-lambda/4.4-function/",
+	"title": "Creating Lambda Function Content",
+	"tags": [],
+	"description": "",
+	"content": "Creating Lambda Function Content We have set up the enviroment for our function. Now, let’s look at the content of the Lambda function in this workshop:\nimport requests import json import boto3 from datetime import datetime s3_client = boto3.client(\u0026#34;s3\u0026#34;) def fetch_data_and_store_to_s3(object_name, bucket_name): base_url = f\u0026#34;https://api.spacexdata.com/v3/{object_name}\u0026#34; offset = 0 limit = 10 while True: url = f\u0026#34;{base_url}?limit={limit}\u0026amp;offset={offset}\u0026#34; response = requests.get(url, timeout=10) data = response.json() if not data: break store_to_s3(data, bucket_name, object_name, offset, limit) offset += limit def store_to_s3(data, bucket_name, object_name, offset, limit): timestamp = datetime.utcnow().strftime(\u0026#34;%Y%m%d%H%M%S\u0026#34;) file_name = f\u0026#34;spacex/{object_name}/{object_name}_offset_{offset}_{timestamp}.json\u0026#34; s3_client.put_object(Bucket=bucket_name, Key=file_name, Body=json.dumps(data)) def lambda_handler(event, context): object_name = \u0026#34;capsules\u0026#34; bucket_name = \u0026#34;spacex-fpt-bucket\u0026#34; fetch_data_and_store_to_s3(object_name, bucket_name) object_name = \u0026#34;cores\u0026#34; fetch_data_and_store_to_s3(object_name, bucket_name) return { \u0026#34;statusCode\u0026#34;: 200, \u0026#34;body\u0026#34;: json.dumps({\u0026#34;message\u0026#34;: \u0026#34;Data fetched and stored to S3 successfully\u0026#34;}), } The Lambda function is designed to automate the process of fetching data from the SpaceX API and storing it in Amazon S3. It handles pagination to manage large datasets, ensures each file is uniquely named with a timestamp, and provides a clear response upon successful completion. This setup allows for efficient data collection and storage without manual intervention.\n"
+},
+{
+	"uri": "//localhost:1313/5-pipeline/",
+	"title": "Auto pipeline",
+	"tags": [],
+	"description": "",
+	"content": "Create schedule event Go to Amazon EventBridge\nClick Schedules. Click Create schedule. At the Create schedule page:\nStep 1: Specify schedule detail In the Schedule name field, write a meaningful name to identify this policy, such as uploadToS3. In the Schedule pattern section, set the timing for the event. For this workshop, you\u0026rsquo;ll configure it to fetch data from an API every 5 minutes: In the Occurrence option box, choose Recurring schedule. Depending on your familiarity with scheduling: If you\u0026rsquo;re familiar with Cron expressions, you can enter your expression in the Cron-based schedule field. You can refer to this guide for help. If you prefer a simpler approach, select Rate-based schedule, enter 5 in the value field, and choose minutes from the dropdown. In the Flexible time window option box, choose 5 minutes. Click Next. Step 2: Select target In the Target detail section, choose Templated targets then choose Invoke from AWS Lambda API. In the Invoke section, choose the function you have create before in part 4.1. Click Next. Step 3: Setting In the Permissions section, choose Use existing role then choose the IAM role you have create before in part 2.2 Click Next. Finally review and all the information and then click Create schedule. After this, you can trigger the schedule and see the result in s3. The result can look like this: Congratulations on completing the lab on creating a simple automated data pipeline that fetches data from an API and stores it in S3. Remember to perform resource cleanup to avoid unintended costs.\n"
+},
+{
+	"uri": "//localhost:1313/6-cleanup/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "We will take the following steps to delete the resources we created in this exercise.\nDelete Event schedule Go to Amazon EventBridge If you have not disable the schedule then click into the schedule you have create for this workshop. Click Disable, an message box will appear then choose Disable After disable the schedule, click Delete. An message box will appear then choose Disable Delete Lambda function Go to Lambda Console Click on the function we created for this workshop. Click Action option box then choose Delete. Input delete, then click Delete to proceed to delete the function Delete S3 bucket Go to S3 service management console\nClick on the S3 bucket we created for this workshop. Click Empty. Enter permanently delete, then click Empty to proceed to delete the object in the bucket. Click Exit. After deleting all objects in the bucket, click Delete\nEnter the name of the S3 bucket, then click Delete bucket to proceed with deleting the S3 bucket.\n"
+},
+{
+	"uri": "//localhost:1313/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "//localhost:1313/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
