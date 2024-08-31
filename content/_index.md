@@ -9,7 +9,7 @@ chapter : false
 ### Overall
 In this lab, you'll learn the basics and practice building a basic data pipeline. This involves crawling data from a web source using a Lambda function, ingesting it into S3, and triggering the pipeline with CloudWatch.
 
-![ConnectPrivate](/images/arc-log.png) 
+![ConnectPrivate](/images/workshop1.png) 
 
 ### Content
  1. [Introduction ](1-introduce/)

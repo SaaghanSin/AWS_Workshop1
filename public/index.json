@@ -1,7 +1,7 @@
 [
 {
 	"uri": "//localhost:1313/",
-	"title": "Session Management",
+	"title": "Building an Automated Data Pipeline: Fetching Data from API to S3 with AWS Lambda and CloudWatch",
 	"tags": [],
 	"description": "",
 	"content": "Data Auto Pipeline in AWS Overall In this lab, you\u0026rsquo;ll learn the basics and practice building a basic data pipeline. This involves crawling data from a web source using a Lambda function, ingesting it into S3, and triggering the pipeline with CloudWatch.\nContent Introduction Preparation Lambda Function Integrate S3 service Auto Pipeline Clean up resources "
